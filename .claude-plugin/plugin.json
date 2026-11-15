@@ -1,8 +1,11 @@
 {
   "name": "pgdeadbolt",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Stops Claude from shipping Postgres migrations that lock your tables. Checks every migration it writes and hands back the safe rewrite.",
-  "author": { "name": "Aryan Tah", "url": "https://aryantah.com" },
+  "author": {
+    "name": "Aryan Tah",
+    "url": "https://aryantah.com"
+  },
   "homepage": "https://pgdeadbolt.aryantah.com",
   "repository": "https://github.com/aryan-tah/pgdeadbolt",
   "license": "MIT",
