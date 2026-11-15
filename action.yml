@@ -1,0 +1,59 @@
+name: pgdeadbolt
+description: Fail pull requests whose Postgres migrations would lock production tables, with the safe rewrite inline.
+author: Aryan Tah
+branding:
+  icon: lock
+  color: blue
+
+inputs:
+  paths:
+    description: Space-separated .sql files or directories to check.
+    required: false
+    default: "."
+  pg-version:
+    description: Major Postgres version the migrations run on.
+    required: false
+    default: "16"
+  in-transaction:
+    description: Set to "true" if your migration tool wraps each file in a transaction.
+    required: false
+    default: "false"
+  fail-on-warning:
+    description: Set to "true" to fail on warnings, not just errors.
+    required: false
+    default: "false"
+  sarif-file:
+    description: Also write a SARIF report to this path, for GitHub code scanning.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 22
+    - name: Build pgdeadbolt
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --no-audit --no-fund --loglevel=error && npm run build --silent
+    - name: Check migrations
+      shell: bash
+      env:
+        PGDB_BIN: ${{ github.action_path }}/dist/bin.js
+        PGDB_PATHS: ${{ inputs.paths }}
+        PGDB_PG_VERSION: ${{ inputs.pg-version }}
+        PGDB_IN_TRANSACTION: ${{ inputs.in-transaction }}
+        PGDB_FAIL_ON_WARNING: ${{ inputs.fail-on-warning }}
+        PGDB_SARIF: ${{ inputs.sarif-file }}
+      run: |
+        args=(check)
+        read -r -a paths <<< "$PGDB_PATHS"
+        args+=("${paths[@]}" --pg-version "$PGDB_PG_VERSION")
+        [ "$PGDB_IN_TRANSACTION" = "true" ] && args+=(--in-transaction)
+        [ "$PGDB_FAIL_ON_WARNING" = "true" ] && args+=(--fail-on-warning)
+        if [ -n "$PGDB_SARIF" ]; then
+          node "$PGDB_BIN" "${args[@]}" --format sarif > "$PGDB_SARIF" || true
+        fi
+        node "$PGDB_BIN" "${args[@]}" --format github

@@ -61,3 +61,24 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx vitest run test/rehearse.test.ts
+
+  action:
+    name: GitHub Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Passes a safe migration
+        uses: ./
+        with:
+          paths: test/fixtures/safe.sql
+      - name: Fails a dangerous migration
+        id: unsafe
+        continue-on-error: true
+        uses: ./
+        with:
+          paths: test/fixtures/unsafe.sql
+      - name: Expect the dangerous migration to fail
+        if: steps.unsafe.outcome != 'failure'
+        run: exit 1

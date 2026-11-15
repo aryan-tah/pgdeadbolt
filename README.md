@@ -28,6 +28,26 @@ npx pgdeadbolt rehearse migrations/0042_add_index.sql --docker --setup schema.sq
 
 It parses migrations with Postgres's own parser, knows which lock each statement takes, and prints the safe way to make the same change. Run `pgdeadbolt rules` for the full list.
 
+## Use it with your coding agent
+
+**Claude Code.** Install the plugin. Every time Claude writes a migration, pgdeadbolt checks it; if it would lock a table, Claude gets the safe rewrite and has to fix it before moving on.
+
+```
+/plugin install pgdeadbolt --marketplace aryan-tah/pgdeadbolt
+```
+
+**Codex and other agents.** Paste [`integrations/codex/AGENTS.md`](integrations/codex/AGENTS.md) into your repo's `AGENTS.md`, or copy [`skills/pgdeadbolt`](skills/pgdeadbolt) into an agent that reads Agent Skills.
+
+**Cursor.** Copy [`integrations/cursor/pgdeadbolt.mdc`](integrations/cursor/pgdeadbolt.mdc) to `.cursor/rules/`.
+
+**GitHub Actions.** Fail pull requests with dangerous migrations, with the fix inline on the diff:
+
+```yaml
+- uses: aryan-tah/pgdeadbolt@v0
+  with:
+    paths: db/migrations
+```
+
 ## License
 
 [MIT](LICENSE)

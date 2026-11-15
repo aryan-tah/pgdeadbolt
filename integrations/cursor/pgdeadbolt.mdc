@@ -1,0 +1,17 @@
+---
+description: Zero-downtime rules for PostgreSQL migrations
+globs: ["**/migrations/**/*.sql", "**/migrate/**/*.sql", "**/*migration*.sql", "**/prisma/migrations/**", "**/supabase/migrations/**", "**/drizzle/**/*.sql"]
+alwaysApply: false
+---
+
+Migrations run against production tables that already hold data. No step may hold a write-blocking lock for more than a moment.
+
+- Start every migration with `SET lock_timeout = '2s';`.
+- `CREATE INDEX CONCURRENTLY` / `DROP INDEX CONCURRENTLY`, each in its own migration outside a transaction.
+- Foreign keys and CHECK constraints: add `NOT VALID`, then `VALIDATE CONSTRAINT` separately.
+- `SET NOT NULL`: add `CHECK (col IS NOT NULL) NOT VALID`, validate it, then set NOT NULL (no scan on PG 12+).
+- No volatile defaults (`gen_random_uuid()`, `clock_timestamp()`), serial, identity or stored generated columns on existing tables: add the column plain, backfill in batches, then set the default.
+- UNIQUE / PRIMARY KEY: `CREATE UNIQUE INDEX CONCURRENTLY`, then `ADD CONSTRAINT … USING INDEX`.
+- Don't change types, rename or drop columns in place: expand and contract across deploys.
+
+After writing a migration, run `npx pgdeadbolt check <file>` and fix every error. Patterns and rules: https://pgdeadbolt.aryantah.com
