@@ -3,12 +3,9 @@ title: change-column-type
 description: Change column types with expand and contract.
 sidebar:
   order: 6
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Change column types with expand and contract.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 Most type changes rewrite the table and rebuild its indexes under `ACCESS EXCLUSIVE`. A few are metadata-only, such as `varchar` to `text` or making a `varchar` longer; if yours is one of them, ignore the finding.
 

@@ -3,12 +3,9 @@ title: require-lock-timeout
 description: Set lock_timeout before taking strong locks.
 sidebar:
   order: 16
-  badge:
-    text: warning
-    variant: caution
 ---
 
-**Set lock_timeout before taking strong locks.** Takes `ACCESS EXCLUSIVE`.
+Severity: **warning** · Lock: `ACCESS EXCLUSIVE`
 
 Even an instant `ALTER TABLE` has to wait for its lock. While it waits behind a long-running query, every new query on the table queues behind the `ALTER`, and the table looks down for as long as the slowest query runs.
 

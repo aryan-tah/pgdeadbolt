@@ -3,12 +3,9 @@ title: refresh-matview-blocking
 description: Refresh materialized views concurrently.
 sidebar:
   order: 13
-  badge:
-    text: warning
-    variant: caution
 ---
 
-**Refresh materialized views concurrently.** Takes `ACCESS EXCLUSIVE`.
+Severity: **warning** · Lock: `ACCESS EXCLUSIVE`
 
 A plain refresh locks the view for the whole recompute, so every read of it waits.
 

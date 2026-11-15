@@ -3,12 +3,9 @@ title: explicit-lock-table
 description: Avoid LOCK TABLE in migrations.
 sidebar:
   order: 15
-  badge:
-    text: warning
-    variant: caution
 ---
 
-**Avoid LOCK TABLE in migrations.**
+Severity: **warning**
 
 An explicit lock lasts until the transaction ends, so every later step in the migration runs while the table is locked.
 

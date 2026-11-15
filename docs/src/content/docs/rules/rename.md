@@ -3,12 +3,9 @@ title: rename
 description: Rename with expand and contract.
 sidebar:
   order: 10
-  badge:
-    text: warning
-    variant: caution
 ---
 
-**Rename with expand and contract.** Takes `ACCESS EXCLUSIVE`.
+Severity: **warning** · Lock: `ACCESS EXCLUSIVE`
 
 The rename itself is instant, but app servers still running the old code keep using the old name during the deploy, and their queries fail.
 

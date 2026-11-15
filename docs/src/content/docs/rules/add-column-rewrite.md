@@ -3,12 +3,9 @@ title: add-column-rewrite
 description: Add columns without rewriting the table.
 sidebar:
   order: 4
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Add columns without rewriting the table.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 Some column additions need a value computed for every existing row, so Postgres rewrites the whole table under `ACCESS EXCLUSIVE`, blocking reads and writes. That covers volatile defaults (`gen_random_uuid()`, `clock_timestamp()`, `random()`), `serial` columns, identity columns and stored generated columns. Before Postgres 11, any default did.
 

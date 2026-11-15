@@ -172,12 +172,9 @@ title: ${r.id}
 description: ${r.title}.
 sidebar:
   order: ${i + 1}
-  badge:
-    text: ${r.severity}
-    variant: ${r.severity === "error" ? "danger" : "caution"}
 ---
 
-**${r.title}.**${r.lock ? ` Takes \`${r.lock}\`.` : ""}
+Severity: **${r.severity}**${r.lock ? ` · Lock: \`${r.lock}\`` : ""}
 
 ${r.why}
 

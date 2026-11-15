@@ -3,12 +3,9 @@ title: add-unique-or-primary-key
 description: Add UNIQUE and PRIMARY KEY from a concurrent index.
 sidebar:
   order: 9
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Add UNIQUE and PRIMARY KEY from a concurrent index.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 `ADD CONSTRAINT ... UNIQUE` and `ADD PRIMARY KEY` build their index under `ACCESS EXCLUSIVE`, so the table is unusable for the whole build.
 

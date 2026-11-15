@@ -3,12 +3,9 @@ title: concurrently-in-transaction
 description: Don't run CONCURRENTLY in a transaction.
 sidebar:
   order: 3
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Don't run CONCURRENTLY in a transaction.**
+Severity: **error**
 
 `CREATE INDEX CONCURRENTLY`, `DROP INDEX CONCURRENTLY`, `REINDEX ... CONCURRENTLY` and `REFRESH MATERIALIZED VIEW CONCURRENTLY` can't run inside a transaction block. Postgres refuses them and the migration fails.
 
