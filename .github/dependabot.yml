@@ -14,6 +14,9 @@ updates:
       # TypeScript 7 drops the compiler API that tsup's declaration build needs.
       - dependency-name: typescript
         versions: [">=7"]
+      # Node types stay on 22.x (the oldest line vitest supports); CI runs on Node 20 to catch newer APIs.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
