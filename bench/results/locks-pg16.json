@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "postgres": "16.16",
+    "rows": 1000000,
+    "date": "2026-11-15",
+    "probeIntervalMs": 5
+  },
+  "cases": [
+    {
+      "name": "Add an index",
+      "unsafe": {
+        "sql": "CREATE INDEX users_email_idx ON users (email);",
+        "durationMs": 1031.2787090000002,
+        "writeBlockedMs": 1030.599083,
+        "readBlockedMs": 6.214290999999321,
+        "strongestLock": "SHARE"
+      },
+      "safe": {
+        "sql": "CREATE INDEX CONCURRENTLY users_email_idx ON users (email);",
+        "durationMs": 933.9029590000009,
+        "writeBlockedMs": 4.144500000000335,
+        "readBlockedMs": 3.9352920000001177,
+        "strongestLock": "SHARE UPDATE EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Add a foreign key",
+      "unsafe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_org_fk FOREIGN KEY (org_id) REFERENCES orgs (id);",
+        "durationMs": 308.6185000000005,
+        "writeBlockedMs": 309.0152500000004,
+        "readBlockedMs": 2.794499999999971,
+        "strongestLock": "SHARE ROW EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_org_fk FOREIGN KEY (org_id) REFERENCES orgs (id) NOT VALID;\nALTER TABLE users VALIDATE CONSTRAINT users_org_fk;",
+        "durationMs": 313.06645800000115,
+        "writeBlockedMs": 2.922167000000627,
+        "readBlockedMs": 2.9140000000006694,
+        "strongestLock": "SHARE ROW EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Add a CHECK constraint",
+      "unsafe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_age_check CHECK (age >= 0);",
+        "durationMs": 48.03720799999792,
+        "writeBlockedMs": 47.378709000000526,
+        "readBlockedMs": 46.97600000000239,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_age_check CHECK (age >= 0) NOT VALID;\nALTER TABLE users VALIDATE CONSTRAINT users_age_check;",
+        "durationMs": 43.594958000005136,
+        "writeBlockedMs": 2.8515000000006694,
+        "readBlockedMs": 2.907959000000119,
+        "strongestLock": "SHARE UPDATE EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Make a column NOT NULL",
+      "unsafe": {
+        "sql": "ALTER TABLE users ALTER COLUMN name SET NOT NULL;",
+        "durationMs": 55.317667000002984,
+        "writeBlockedMs": 48.368625000002794,
+        "readBlockedMs": 48.3915829999969,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_name_nn CHECK (name IS NOT NULL) NOT VALID;\nALTER TABLE users VALIDATE CONSTRAINT users_name_nn;\nALTER TABLE users ALTER COLUMN name SET NOT NULL;\nALTER TABLE users DROP CONSTRAINT users_name_nn;",
+        "durationMs": 39.74175099999411,
+        "writeBlockedMs": 4.653874999996333,
+        "readBlockedMs": 4.651125000003958,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Add a UNIQUE constraint",
+      "unsafe": {
+        "sql": "ALTER TABLE users ADD CONSTRAINT users_email_key UNIQUE (email);",
+        "durationMs": 654.5790839999972,
+        "writeBlockedMs": 655.0013749999998,
+        "readBlockedMs": 654.9859579999975,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "CREATE UNIQUE INDEX CONCURRENTLY users_email_key_idx ON users (email);\nALTER TABLE users ADD CONSTRAINT users_email_key UNIQUE USING INDEX users_email_key_idx;",
+        "durationMs": 952.7511660000018,
+        "writeBlockedMs": 3.0032499999942956,
+        "readBlockedMs": 3.0252909999981057,
+        "strongestLock": "SHARE UPDATE EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Add a column with a volatile default",
+      "note": "Existing rows are backfilled afterwards, in batches outside the migration.",
+      "unsafe": {
+        "sql": "ALTER TABLE users ADD COLUMN token uuid DEFAULT gen_random_uuid();",
+        "durationMs": 1228.395749999996,
+        "writeBlockedMs": 1218.456624999999,
+        "readBlockedMs": 1218.5074999999997,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD COLUMN token uuid;\nALTER TABLE users ALTER COLUMN token SET DEFAULT gen_random_uuid();",
+        "durationMs": 3.0247500000041327,
+        "writeBlockedMs": 2.5855420000007143,
+        "readBlockedMs": 2.4498749999984284,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      }
+    },
+    {
+      "name": "Add a bigserial column",
+      "note": "The sequence default is attached after a batched backfill.",
+      "unsafe": {
+        "sql": "ALTER TABLE users ADD COLUMN seq bigserial;",
+        "durationMs": 4581.652291999999,
+        "writeBlockedMs": 4575.367459000001,
+        "readBlockedMs": 4575.460708999999,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD COLUMN seq bigint;",
+        "durationMs": 1.6815829999977723,
+        "writeBlockedMs": 1.9596670000028098,
+        "readBlockedMs": 1.9774999999935972,
+        "strongestLock": "none"
+      }
+    },
+    {
+      "name": "Change a column type",
+      "note": "The first step of expand and contract; the backfill and switch happen across later deploys.",
+      "unsafe": {
+        "sql": "ALTER TABLE users ALTER COLUMN counter TYPE bigint;",
+        "durationMs": 545.6385420000006,
+        "writeBlockedMs": 539.6796250000043,
+        "readBlockedMs": 539.6893750000017,
+        "strongestLock": "ACCESS EXCLUSIVE"
+      },
+      "safe": {
+        "sql": "ALTER TABLE users ADD COLUMN counter_new bigint;",
+        "durationMs": 1.4400000000023283,
+        "writeBlockedMs": 2.286500000001979,
+        "readBlockedMs": 2.245874999993248,
+        "strongestLock": "none"
+      }
+    }
+  ]
+}

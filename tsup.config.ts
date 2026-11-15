@@ -5,7 +5,11 @@ const { version } = JSON.parse(readFileSync("package.json", "utf8")) as { versio
 
 export default defineConfig([
   {
-    entry: ["src/index.ts"],
+    entry: {
+      index: "src/index.ts",
+      "rehearse-docker": "src/rehearse/docker.ts",
+      "rehearse-seed": "src/rehearse/seed.ts",
+    },
     format: ["esm"],
     target: "node20",
     dts: true,

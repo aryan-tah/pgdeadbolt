@@ -13,7 +13,7 @@ export default defineConfig({
       editLink: { baseUrl: "https://github.com/aryan-tah/pgdeadbolt/edit/main/docs/" },
       lastUpdated: true,
       sidebar: [
-        { label: "Start here", items: ["getting-started", "guides/configuration"] },
+        { label: "Start here", items: ["getting-started", "guides/configuration", "benchmark"] },
         {
           label: "Coding agents",
           items: ["guides/claude-code", "guides/codex-and-cursor"],
