@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/aryan-tah/pgdeadbolt/compare/v0.1.0...v0.1.1) (2026-11-15)
+
+
+### Documentation
+
+* neutral black theme and an icon-free landing page ([#41](https://github.com/aryan-tah/pgdeadbolt/issues/41)) ([5d8b6a8](https://github.com/aryan-tah/pgdeadbolt/commit/5d8b6a803b1bf4791fbdb1c4d0bb9202e8d751fd))
+
 ## 0.1.0 (2026-11-15)
 
 
