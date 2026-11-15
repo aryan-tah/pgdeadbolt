@@ -45,7 +45,14 @@ jobs:
       - run: npm run build
       # Trusted publishing (OIDC): no npm token is stored in the repo. Provenance
       # links each published version to this workflow run.
-      - run: npm publish --provenance --access public
+      - name: Publish, unless this version is already on npm
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "pgdeadbolt@$VERSION" version >/dev/null 2>&1; then
+            echo "pgdeadbolt@$VERSION is already published; skipping."
+          else
+            npm publish --provenance --access public
+          fi
       - name: Move the v<major> tag for the GitHub Action
         env:
           TAG: ${{ needs.release-please.outputs.tag }}
