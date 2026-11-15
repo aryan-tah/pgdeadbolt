@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { type AnalyzeResult, analyze } from "./analyze.js";
 import { loadConfig } from "./config.js";
@@ -131,7 +131,9 @@ export async function main(argv: string[]): Promise<number> {
       return 2;
     }
     for (const file of files.sort()) {
-      const name = relative(process.cwd(), file) || file;
+      const rel = relative(process.cwd(), file);
+      // Paths inside the project read better relative; anything outside stays absolute.
+      const name = rel && !rel.startsWith("..") ? rel : resolve(file);
       try {
         results.push(await analyze(readFileSync(file, "utf8"), { ...options, file: name }));
       } catch (err) {

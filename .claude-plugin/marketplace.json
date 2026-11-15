@@ -1,0 +1,15 @@
+{
+  "name": "pgdeadbolt",
+  "owner": { "name": "Aryan Tah", "url": "https://aryantah.com" },
+  "metadata": {
+    "description": "Postgres migration safety for coding agents."
+  },
+  "plugins": [
+    {
+      "name": "pgdeadbolt",
+      "source": "./",
+      "description": "Stops Claude from shipping Postgres migrations that lock your tables. Checks every migration it writes and hands back the safe rewrite.",
+      "category": "database"
+    }
+  ]
+}
