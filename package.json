@@ -1,6 +1,6 @@
 {
   "name": "pgdeadbolt",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Stop AI coding agents from shipping Postgres migrations that lock your tables.",
   "keywords": [
     "postgres",
