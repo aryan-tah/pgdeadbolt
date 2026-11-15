@@ -32,7 +32,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
@@ -61,5 +63,9 @@
   },
   "bin": {
     "pgdeadbolt": "./dist/bin.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
