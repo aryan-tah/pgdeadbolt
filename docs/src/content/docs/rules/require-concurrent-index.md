@@ -1,12 +1,11 @@
 ---
-
 title: require-concurrent-index
 description: Create indexes concurrently.
 sidebar:
-order: 1
-badge:
-text: error
-variant: danger
+  order: 1
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Create indexes concurrently.** Takes `SHARE`.

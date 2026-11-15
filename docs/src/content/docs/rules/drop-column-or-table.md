@@ -1,12 +1,11 @@
 ---
-
 title: drop-column-or-table
 description: Drop columns and tables in a later deploy.
 sidebar:
-order: 11
-badge:
-text: warning
-variant: caution
+  order: 11
+  badge:
+    text: warning
+    variant: caution
 ---
 
 **Drop columns and tables in a later deploy.** Takes `ACCESS EXCLUSIVE`.

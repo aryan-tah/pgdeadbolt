@@ -1,12 +1,11 @@
 ---
-
 title: concurrently-in-transaction
 description: Don't run CONCURRENTLY in a transaction.
 sidebar:
-order: 3
-badge:
-text: error
-variant: danger
+  order: 3
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Don't run CONCURRENTLY in a transaction.**

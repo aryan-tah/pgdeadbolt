@@ -1,12 +1,11 @@
 ---
-
 title: change-column-type
 description: Change column types with expand and contract.
 sidebar:
-order: 6
-badge:
-text: error
-variant: danger
+  order: 6
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Change column types with expand and contract.** Takes `ACCESS EXCLUSIVE`.

@@ -1,12 +1,11 @@
 ---
-
 title: table-rewrite-command
 description: Don't VACUUM FULL or CLUSTER in a migration.
 sidebar:
-order: 12
-badge:
-text: error
-variant: danger
+  order: 12
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Don't VACUUM FULL or CLUSTER in a migration.** Takes `ACCESS EXCLUSIVE`.

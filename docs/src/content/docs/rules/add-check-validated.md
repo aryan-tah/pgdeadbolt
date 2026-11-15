@@ -1,12 +1,11 @@
 ---
-
 title: add-check-validated
 description: Add CHECK constraints as NOT VALID first.
 sidebar:
-order: 8
-badge:
-text: error
-variant: danger
+  order: 8
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Add CHECK constraints as NOT VALID first.** Takes `ACCESS EXCLUSIVE`.

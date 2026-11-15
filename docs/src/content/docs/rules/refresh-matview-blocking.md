@@ -1,12 +1,11 @@
 ---
-
 title: refresh-matview-blocking
 description: Refresh materialized views concurrently.
 sidebar:
-order: 13
-badge:
-text: warning
-variant: caution
+  order: 13
+  badge:
+    text: warning
+    variant: caution
 ---
 
 **Refresh materialized views concurrently.** Takes `ACCESS EXCLUSIVE`.

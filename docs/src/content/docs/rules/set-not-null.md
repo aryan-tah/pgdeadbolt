@@ -1,12 +1,11 @@
 ---
-
 title: set-not-null
 description: Set NOT NULL without a full scan.
 sidebar:
-order: 5
-badge:
-text: error
-variant: danger
+  order: 5
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Set NOT NULL without a full scan.** Takes `ACCESS EXCLUSIVE`.

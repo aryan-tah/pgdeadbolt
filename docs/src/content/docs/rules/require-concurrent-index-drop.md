@@ -1,12 +1,11 @@
 ---
-
 title: require-concurrent-index-drop
 description: Drop indexes concurrently.
 sidebar:
-order: 2
-badge:
-text: warning
-variant: caution
+  order: 2
+  badge:
+    text: warning
+    variant: caution
 ---
 
 **Drop indexes concurrently.** Takes `ACCESS EXCLUSIVE`.

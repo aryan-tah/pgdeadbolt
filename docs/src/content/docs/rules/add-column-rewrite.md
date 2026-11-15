@@ -1,12 +1,11 @@
 ---
-
 title: add-column-rewrite
 description: Add columns without rewriting the table.
 sidebar:
-order: 4
-badge:
-text: error
-variant: danger
+  order: 4
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Add columns without rewriting the table.** Takes `ACCESS EXCLUSIVE`.

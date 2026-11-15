@@ -1,12 +1,11 @@
 ---
-
 title: rename
 description: Rename with expand and contract.
 sidebar:
-order: 10
-badge:
-text: warning
-variant: caution
+  order: 10
+  badge:
+    text: warning
+    variant: caution
 ---
 
 **Rename with expand and contract.** Takes `ACCESS EXCLUSIVE`.

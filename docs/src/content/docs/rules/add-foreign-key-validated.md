@@ -1,12 +1,11 @@
 ---
-
 title: add-foreign-key-validated
 description: Add foreign keys as NOT VALID first.
 sidebar:
-order: 7
-badge:
-text: error
-variant: danger
+  order: 7
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Add foreign keys as NOT VALID first.** Takes `SHARE ROW EXCLUSIVE`.

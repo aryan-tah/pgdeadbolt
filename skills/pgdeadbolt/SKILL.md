@@ -1,5 +1,4 @@
 ---
-
 name: pgdeadbolt
 description: Use when writing, editing or reviewing a PostgreSQL migration (SQL files, or Prisma, Drizzle, Rails, Django, Knex, TypeORM, Sequelize, Supabase or Flyway migrations) on a table that already holds data. Applies the zero-downtime patterns that keep a migration from locking production tables, and checks the result with pgdeadbolt.
 ---

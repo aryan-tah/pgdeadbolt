@@ -1,12 +1,11 @@
 ---
-
 title: reindex-blocking
 description: Reindex concurrently.
 sidebar:
-order: 14
-badge:
-text: error
-variant: danger
+  order: 14
+  badge:
+    text: error
+    variant: danger
 ---
 
 **Reindex concurrently.** Takes `SHARE`.

@@ -1,12 +1,11 @@
 ---
-
 title: require-lock-timeout
 description: Set lock_timeout before taking strong locks.
 sidebar:
-order: 16
-badge:
-text: warning
-variant: caution
+  order: 16
+  badge:
+    text: warning
+    variant: caution
 ---
 
 **Set lock_timeout before taking strong locks.** Takes `ACCESS EXCLUSIVE`.
