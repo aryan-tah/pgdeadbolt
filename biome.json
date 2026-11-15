@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/*.md", "!**/*.mdx", "!docs/dist", "!docs/.astro"]
+    "includes": ["**", "!**/*.md", "!**/*.mdx", "!docs/dist", "!docs/.astro", "!.release-please-manifest.json", "!.claude-plugin/*.json"]
   },
   "formatter": {
     "indentStyle": "space",
