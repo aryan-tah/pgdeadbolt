@@ -15,6 +15,17 @@ migrations/0042_add_index.sql
            CREATE INDEX CONCURRENTLY idx_users_email ON users (email);
 ```
 
+Or measure it for real. `rehearse` runs the migration on a throwaway Postgres while probe connections try to write to the same tables:
+
+```bash
+npx pgdeadbolt rehearse migrations/0042_add_index.sql --docker --setup schema.sql --seed users=2000000
+```
+
+| Migration on 2M rows        | Build time | Writes blocked |
+| --------------------------- | ---------- | -------------- |
+| `CREATE INDEX`              | 2.48s      | **2.48s**      |
+| `CREATE INDEX CONCURRENTLY` | 2.59s      | **33ms**       |
+
 It parses migrations with Postgres's own parser, knows which lock each statement takes, and prints the safe way to make the same change. Run `pgdeadbolt rules` for the full list.
 
 ## License

@@ -2,6 +2,7 @@ export { type AnalyzeResult, analyze } from "./analyze.js";
 export { type Config, loadConfig } from "./config.js";
 export { type Format, format } from "./format.js";
 export { ParseError, parseSql } from "./parse.js";
+export { type RehearseOptions, rehearse, type StatementResult } from "./rehearse/index.js";
 export { allRuleIds, rules } from "./rules/index.js";
 export type { Finding, LockMode, Options, Rule, Severity } from "./types.js";
 

@@ -6,6 +6,7 @@ import { loadConfig } from "./config.js";
 import { type Format, format } from "./format.js";
 import { VERSION } from "./index.js";
 import { ParseError } from "./parse.js";
+import { rehearseCommand } from "./rehearse/cli.js";
 import { REQUIRE_LOCK_TIMEOUT, rules } from "./rules/index.js";
 
 const HELP = `pgdeadbolt ${VERSION}
@@ -15,6 +16,8 @@ Usage
   pgdeadbolt check [paths...]   Check .sql files or directories (default: current directory)
   pgdeadbolt check -            Read SQL from stdin
   pgdeadbolt rules              List every rule
+  pgdeadbolt rehearse <file>    Run a migration on a disposable Postgres and measure blocking
+                                (see pgdeadbolt rehearse --help)
 
 Options
   --pg-version <n>        Postgres major version the migration runs on (default 16)
@@ -46,6 +49,7 @@ async function readStdin(): Promise<string> {
 }
 
 export async function main(argv: string[]): Promise<number> {
+  if (argv[0] === "rehearse") return rehearseCommand(argv.slice(1));
   let parsed: ReturnType<typeof parseArgs>;
   try {
     parsed = parseArgs({
