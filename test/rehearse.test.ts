@@ -9,12 +9,14 @@ describe("tablesIn", () => {
     const [stmt] = await parseSql(
       "ALTER TABLE app.orders ADD CONSTRAINT fk FOREIGN KEY (user_id) REFERENCES users (id);",
     );
-    expect(tablesIn(stmt!).sort()).toEqual(["app.orders", "users"]);
+    if (!stmt) throw new Error("no statement");
+    expect(tablesIn(stmt).sort()).toEqual(["app.orders", "users"]);
   });
 
   it("doesn't treat an index name as a table", async () => {
     const [stmt] = await parseSql("REINDEX INDEX CONCURRENTLY users_email_idx;");
-    expect(tablesIn(stmt!)).toEqual([]);
+    if (!stmt) throw new Error("no statement");
+    expect(tablesIn(stmt)).toEqual([]);
   });
 });
 
@@ -52,13 +54,14 @@ describe.skipIf(!url)("rehearse (needs DATABASE_URL)", () => {
     const [concurrent] = await rehearse(`CREATE INDEX CONCURRENTLY ${table}_b ON ${table} (email);`, {
       url: url as string,
     });
-    expect(blocking?.locks[0]).toEqual({ relation: table, mode: "SHARE" });
-    expect(concurrent?.locks[0]).toEqual({ relation: table, mode: "SHARE UPDATE EXCLUSIVE" });
+    if (!blocking || !concurrent) throw new Error("no results");
+    expect(blocking.locks[0]).toEqual({ relation: table, mode: "SHARE" });
+    expect(concurrent.locks[0]).toEqual({ relation: table, mode: "SHARE UPDATE EXCLUSIVE" });
     // A blocking build holds up writes for most of its run; a concurrent one barely at all.
-    expect(blocking!.writeBlockedMs).toBeGreaterThan(blocking!.durationMs * 0.5);
-    expect(concurrent!.writeBlockedMs).toBeLessThan(blocking!.writeBlockedMs);
+    expect(blocking.writeBlockedMs).toBeGreaterThan(blocking.durationMs * 0.5);
+    expect(concurrent.writeBlockedMs).toBeLessThan(blocking.writeBlockedMs);
     // Reads aren't blocked by a SHARE lock.
-    expect(blocking!.readBlockedMs).toBeLessThan(blocking!.writeBlockedMs);
+    expect(blocking.readBlockedMs).toBeLessThan(blocking.writeBlockedMs);
   }, 120_000);
 
   it("sees ACCESS EXCLUSIVE when a column add rewrites the table", async () => {
@@ -66,7 +69,7 @@ describe.skipIf(!url)("rehearse (needs DATABASE_URL)", () => {
       url: url as string,
     });
     expect(r?.locks[0]?.mode).toBe("ACCESS EXCLUSIVE");
-    expect(r!.readBlockedMs).toBeGreaterThan(0);
+    expect(r?.readBlockedMs ?? 0).toBeGreaterThan(0);
   }, 120_000);
 
   it("stops at a failing statement and reports the error", async () => {
