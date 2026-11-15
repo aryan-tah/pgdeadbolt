@@ -10,6 +10,10 @@ updates:
     labels: ["dependencies", "type: chore"]
     commit-message:
       prefix: chore
+    ignore:
+      # TypeScript 7 drops the compiler API that tsup's declaration build needs.
+      - dependency-name: typescript
+        versions: [">=7"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
