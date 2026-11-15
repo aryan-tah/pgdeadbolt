@@ -1,0 +1,33 @@
+name: Bug
+description: pgdeadbolt crashed, behaved wrongly, or an integration didn't work.
+labels: ["type: bug", "status: needs triage"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps or migration to reproduce
+      render: sql
+  - type: input
+    id: version
+    attributes:
+      label: pgdeadbolt version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: pg
+    attributes:
+      label: Postgres version
+      placeholder: "16"
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where you ran it
+      options: [CLI, GitHub Action, Claude Code, Codex, Cursor, Other]
