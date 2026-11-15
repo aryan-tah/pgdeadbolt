@@ -139,7 +139,9 @@ starlight-theme-select select {
   padding: 0.375rem var(--sl-sidebar-item-padding-inline);
   font-size: 0.875rem;
   color: var(--sl-color-gray-3);
-  transition: color 120ms ease, background-color 120ms ease;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
 }
 .sidebar-content a:hover {
   color: var(--sl-color-white);
@@ -308,7 +310,10 @@ footer .meta {
   font-weight: 500;
   text-decoration: none;
   color: var(--sl-color-white);
-  transition: background-color 120ms ease, border-color 120ms ease, scale 150ms ease-out;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    scale 150ms ease-out;
 }
 .dl-button:hover {
   border-color: var(--sl-color-gray-5);
