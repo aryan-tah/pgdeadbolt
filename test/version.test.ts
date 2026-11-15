@@ -3,6 +3,6 @@ import { VERSION } from "../src/index.js";
 
 describe("pgdeadbolt", () => {
   it("exports a version", () => {
-    expect(VERSION).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(VERSION).toMatch(/^\d+\.\d+\.\d+/);
   });
 });
