@@ -3,12 +3,9 @@ title: drop-column-or-table
 description: Drop columns and tables in a later deploy.
 sidebar:
   order: 11
-  badge:
-    text: warning
-    variant: caution
 ---
 
-**Drop columns and tables in a later deploy.** Takes `ACCESS EXCLUSIVE`.
+Severity: **warning** · Lock: `ACCESS EXCLUSIVE`
 
 Code that's still running may select or write the column or table. ORMs that select every column can break too. And a drop can't be undone without a backup.
 

@@ -3,12 +3,9 @@ title: table-rewrite-command
 description: Don't VACUUM FULL or CLUSTER in a migration.
 sidebar:
   order: 12
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Don't VACUUM FULL or CLUSTER in a migration.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 Both copy the entire table into new storage while holding `ACCESS EXCLUSIVE`.
 

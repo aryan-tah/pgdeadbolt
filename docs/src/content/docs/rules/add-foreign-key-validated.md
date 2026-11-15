@@ -3,12 +3,9 @@ title: add-foreign-key-validated
 description: Add foreign keys as NOT VALID first.
 sidebar:
   order: 7
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Add foreign keys as NOT VALID first.** Takes `SHARE ROW EXCLUSIVE`.
+Severity: **error** · Lock: `SHARE ROW EXCLUSIVE`
 
 Adding a foreign key checks every existing row against the referenced table, and locks both tables against writes while it does.
 

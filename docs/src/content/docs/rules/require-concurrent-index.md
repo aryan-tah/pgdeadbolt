@@ -3,12 +3,9 @@ title: require-concurrent-index
 description: Create indexes concurrently.
 sidebar:
   order: 1
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Create indexes concurrently.** Takes `SHARE`.
+Severity: **error** · Lock: `SHARE`
 
 A plain `CREATE INDEX` takes a `SHARE` lock on the table. Reads keep working, but every `INSERT`, `UPDATE` and `DELETE` waits until the index is built, and building an index on a big table takes seconds to minutes.
 

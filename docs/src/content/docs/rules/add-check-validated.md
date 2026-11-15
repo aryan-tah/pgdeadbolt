@@ -3,12 +3,9 @@ title: add-check-validated
 description: Add CHECK constraints as NOT VALID first.
 sidebar:
   order: 8
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Add CHECK constraints as NOT VALID first.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 Adding a `CHECK` constraint scans the whole table to validate it while holding `ACCESS EXCLUSIVE`.
 

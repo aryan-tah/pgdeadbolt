@@ -3,12 +3,9 @@ title: set-not-null
 description: Set NOT NULL without a full scan.
 sidebar:
   order: 5
-  badge:
-    text: error
-    variant: danger
 ---
 
-**Set NOT NULL without a full scan.** Takes `ACCESS EXCLUSIVE`.
+Severity: **error** · Lock: `ACCESS EXCLUSIVE`
 
 To add `NOT NULL`, Postgres must prove no row is null. Unless a valid `CHECK` constraint already proves it, it scans the whole table while holding `ACCESS EXCLUSIVE`.
 

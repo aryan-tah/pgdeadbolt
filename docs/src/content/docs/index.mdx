@@ -2,47 +2,62 @@
 title: pgdeadbolt
 description: Stop AI coding agents from shipping Postgres migrations that lock your tables.
 template: splash
-hero:
-  tagline: Stop AI coding agents from shipping Postgres migrations that lock your tables.
-  image:
-    file: ../../assets/logo.svg
-  actions:
-    - text: Get started
-      link: /getting-started/
-      icon: right-arrow
-    - text: Use it with Claude Code
-      link: /guides/claude-code/
-      variant: minimal
-    - text: GitHub
-      link: https://github.com/aryan-tah/pgdeadbolt
-      icon: external
-      variant: minimal
+editUrl: false
+lastUpdated: false
+pagefind: false
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
-
-A migration that finishes instantly on your laptop can freeze a busy table in production. `CREATE INDEX` without `CONCURRENTLY` blocks every write for the whole build. A column with `DEFAULT gen_random_uuid()` rewrites the table. Coding agents write these all the time, because they're correct SQL.
+<div class="dl-hero">
+  <h1>Postgres migrations that don't lock production</h1>
+  <p>pgdeadbolt stops coding agents from shipping migrations that block your tables, and hands back the safe version.</p>
+  <div class="dl-actions">
+    <a class="dl-button primary" href="/getting-started/">Get started</a>
+    <a class="dl-button" href="/guides/claude-code/">Use it with Claude Code</a>
+    <a class="dl-button" href="https://github.com/aryan-tah/pgdeadbolt">GitHub</a>
+  </div>
+  <div class="dl-install">
 
 ```bash
 npx pgdeadbolt check migrations/
 ```
+
+  </div>
+</div>
+
+<div class="dl-section">
+
+## The problem
+
+A migration that finishes instantly on your laptop can freeze a busy table in production. `CREATE INDEX` without `CONCURRENTLY` blocks every write for the whole build. A column with `DEFAULT gen_random_uuid()` rewrites the table. Coding agents write these all the time, because they're correct SQL.
 
 | Migration on 2M rows | Build time | Writes blocked |
 | --- | --- | --- |
 | `CREATE INDEX` | 2.48s | **2.48s** |
 | `CREATE INDEX CONCURRENTLY` | 2.59s | **33ms** |
 
-<CardGrid>
-  <Card title="Catches it" icon="warning">
-    16 rules, built on Postgres's own parser, know which lock each statement takes and print the safe way to make the same change.
-  </Card>
-  <Card title="Measures it" icon="seti:db">
-    `rehearse` runs the migration on a throwaway Postgres under live probes and reports how long writes and reads were actually blocked.
-  </Card>
-  <Card title="Guards your agent" icon="rocket">
-    A Claude Code plugin checks every migration the agent writes and hands back the fix. Codex, Cursor and a GitHub Action are covered too.
-  </Card>
-  <Card title="Fits your stack" icon="puzzle">
-    Plain SQL, Prisma, Drizzle, Supabase, Rails, Django and Knex. Exit codes, JSON, GitHub annotations and SARIF for CI.
-  </Card>
-</CardGrid>
+</div>
+
+<div class="dl-section">
+
+## What it does
+
+<div class="dl-features">
+  <div>
+    <h3>Catches it</h3>
+    <p>16 rules on Postgres's own parser know which lock each statement takes, and print the safe way to make the same change.</p>
+  </div>
+  <div>
+    <h3>Measures it</h3>
+    <p><code>rehearse</code> runs the migration on a throwaway Postgres under live probes and reports how long writes and reads were blocked.</p>
+  </div>
+  <div>
+    <h3>Guards your agent</h3>
+    <p>A Claude Code plugin checks every migration the agent writes and hands back the fix. Codex, Cursor and a GitHub Action are covered too.</p>
+  </div>
+  <div>
+    <h3>Fits your stack</h3>
+    <p>Plain SQL, Prisma, Drizzle, Supabase, Rails, Django and Knex. Text, JSON, GitHub annotations and SARIF output for CI.</p>
+  </div>
+</div>
+
+</div>
