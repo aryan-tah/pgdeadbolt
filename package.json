@@ -50,12 +50,12 @@
     "bench": "npm run build && node bench/locks.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.8",
     "@types/node": "^22.20.5",
     "@types/pg": "^8.23.1",
     "tsup": "9.0.0",
     "typescript": "^6.0.3",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "dependencies": {
     "libpg-query": "^18.2.4",
